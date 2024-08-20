@@ -5,10 +5,10 @@ import blogPosts from '../data/blogPost'; // Import the shared data
 const BlogPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  navigate('/');
   const post = blogPosts.find((post) => post.id === parseInt(id));
 
   if (!post) {
-    navigate('/');
     return <div className="container mx-auto px-4 py-20">Post not found.</div>;
   }
 
