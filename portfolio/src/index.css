@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Tailwind CSS utility for links */
+.blog-content a {
+  @apply text-blue-500 font-bold relative hover:text-blue-700 transition-colors duration-300;
+}
+
+.blog-content a::after {
+  content: '';
+  @apply absolute left-0 bottom-0 w-full h-px bg-blue-500 scale-x-0 origin-bottom-right transition-transform duration-300 ease-out;
+}
+
+.blog-content a:hover::after {
+  @apply scale-x-100 origin-bottom-left;
+}
