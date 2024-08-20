@@ -1,8 +1,9 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const blogPosts = [
   {
+    id: 1,
     title: 'My Transition from an English teacher to a Software Developer',
     date: 'August 18, 2024',
     content: 'In this post, I share how I transitioned from a background in English Literature to becoming a Backend Developer...'
@@ -11,9 +12,12 @@ const blogPosts = [
 
 const BlogPost = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const post = blogPosts.find((post) => post.id === id);
 
   if (!post) {
+    // Redirect to a 404 page or the home page
+    navigate('/');
     return <div className="container mx-auto px-4 py-20">Post not found.</div>;
   }
 

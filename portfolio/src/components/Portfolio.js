@@ -6,17 +6,17 @@ const Portfolio = () => {
     {
       title: 'E-commerce Platform',
       description: 'A fully functional e-commerce platform built with Node.js, Express, and MongoDB.',
-      link: 'https://github.com/yourusername/ecommerce-platform'
+      link: ''
     },
     {
       title: 'Real-time Chat Application',
       description: 'A chat application using React, WebSocket, and Firebase for real-time communication.',
-      link: 'https://github.com/yourusername/chat-app'
+      link: ''
     },
     {
       title: 'Personal Portfolio',
       description: 'My personal portfolio website to showcase my projects and skills.',
-      link: 'https://github.com/yourusername/personal-portfolio'
+      link: ''
     }
   ];
 
