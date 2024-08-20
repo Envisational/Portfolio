@@ -8,28 +8,31 @@ import Skills from './components/Skills';
 import Journey from './components/Journey';
 import Contact from './components/Contact';
 import BlogPost from './components/BlogPost';
+import Starfield from './components/Starfield';
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Header />
-        <Routes>
-          <Route path="/" element={<>
-            <Hero />
-            <About />
-            <Portfolio />
-            <Skills />
-            <Journey />
-            <Contact />
-          </>} />
-          <Route path="/post/:id" element={<BlogPost />} />
-        </Routes>
-      </div>
-    </Router>
+    <div className="relative">
+      <Starfield />
+      <Router>
+        <div className="relative z-10">
+          <Header />
+          <Routes>
+            <Route path="/" element={<>
+              <Hero />
+              <About />
+              <Portfolio />
+              <Skills />
+              <Journey />
+              <Contact />
+            </>} />
+            <Route path="/post/:id" element={<BlogPost />} />
+          </Routes>
+        </div>
+      </Router>
+    </div>
   );
 }
 
 export default App;
-
 

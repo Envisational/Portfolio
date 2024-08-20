@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import blogPosts from '../data/blogPost'; // Import the shared data
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import blogPosts from '../data/blogPost';
 
+gsap.registerPlugin(ScrollTrigger);
 
 const Journey = () => {
+  useEffect(() => {
+    gsap.fromTo(
+      '.journey-section',
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        scrollTrigger: {
+          trigger: '.journey-section',
+          start: 'top 75%',
+        },
+      }
+    );
+  }, []);
+
   return (
-    <section id="journey" className="py-20 bg-gray-100">
+    <section id="journey" className="py-20 bg-gray-100 journey-section">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-8">My Journey</h2>
         <div className="space-y-8">
