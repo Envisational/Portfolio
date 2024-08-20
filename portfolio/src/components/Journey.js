@@ -1,16 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import blogPosts from '../data/blogPost'; // Import the shared data
+
 
 const Journey = () => {
-  // Sample blog post
-  const blogPosts = [
-    {
-      id: 1,
-      title: 'My Transition from an English teacher to a Software Developer',
-      date: 'August 18, 2024',
-    }
-  ];
-
   return (
     <section id="journey" className="py-20 bg-gray-100">
       <div className="container mx-auto px-4">
