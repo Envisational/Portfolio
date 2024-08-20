@@ -2,7 +2,7 @@
 const blogPosts = [
     {
       id: 1,
-      title: 'My Transition from an English teacher to a Software Developer',
+      title: 'Post[0]: My Transition from an English teacher to a Software Developer',
       date: 'August 18, 2024',
       content: `
       <p>I've always LOVED tech! Until eventually stuff breaks down and you start reflecting on your life decisions :) </p>
