@@ -14,10 +14,10 @@ const BlogPost = () => {
   }
 
   return (
-    <section className="py-20 bg-gray-100">
+    <section className="section bg-gray-100">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-4">{post.title}</h2>
-        <p className="text-gray-600 mb-8">{post.date}</p>
+        <h2 className="section-heading mb-4">{post.title}</h2>
+        <p className="text-center text-gray-600 mb-8">{post.date}</p>
         <div
           className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg text-gray-800 blog-content"
           dangerouslySetInnerHTML={{ __html: post.content }}

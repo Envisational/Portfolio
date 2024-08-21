@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 
 const Hero = () => {
   return (
-    <section id="home" className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-purple-600 relative z-10">
-      <div className="text-center text-white">
+    <section id="home" className="flex items-center justify-center h-screen">
+      <div className="text-center">
         <motion.h1
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
