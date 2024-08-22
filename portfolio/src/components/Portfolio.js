@@ -1,24 +1,32 @@
 import React from 'react';
 
 const Portfolio = () => {
-  // Sample data
+  
   const projects = [
     {
-      title: 'E-commerce Platform',
-      description: 'A fully functional e-commerce platform built with Node.js, Express, and MongoDB.',
-      link: ''
+      title: 'Slickdeals',
+      role: 'Full Stack Developer',
+      description: 'Developed and maintained complex features for a high-traffic deal-sharing platform, optimizing backend performance and enhancing user experience. Worked with a tech stack including Node.js, Express.js, React.js, PostgreSQL, MongoDB, and AWS.',
+      technologies: 'Node.js, Express.js, React.js, PostgreSQL, MongoDB, AWS',
+      link: 'https://slickdeals.net/'
     },
     {
-      title: 'Real-time Chat Application',
-      description: 'A chat application using React, WebSocket, and Firebase for real-time communication.',
-      link: ''
+      title: 'International Humanitarian Development (IHD)',
+      role: 'Full Stack Developer',
+      description: 'Built scalable and secure web applications for humanitarian projects. Focused on security, scalability, and seamless integration with third-party services, using Flask, React.js, PostgreSQL, and AWS.',
+      technologies: 'Flask, React.js, PostgreSQL, AWS',
+      link: 'https://www.ihd.ae/'
     },
     {
-      title: 'Personal Portfolio',
-      description: 'My personal portfolio website to showcase my projects and skills.',
-      link: ''
+      title: 'Kick.com',
+      role: 'Full Stack Developer',
+      description: 'Led full-stack development for a streaming platform, implementing real-time data processing and optimizing performance. Utilized a tech stack including Node.js, React.js, WebSocket, AWS, and Cloudflare for a seamless streaming experience.',
+      technologies: 'Node.js, React.js, WebSocket, AWS, Cloudflare',
+      link: 'https://kick.com/'
     }
   ];
+  
+  
 
   return (
     <section id="portfolio" className="py-20">
@@ -30,6 +38,7 @@ const Portfolio = () => {
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                 <p className="text-gray-700 mb-4">{project.description}</p>
+                <p className="text-sm text-gray-500 mb-4"><strong>Technologies Used:</strong> {project.technologies}</p>
                 <a
                   href={project.link}
                   className="text-blue-500 hover:text-blue-700 font-semibold"
@@ -45,6 +54,7 @@ const Portfolio = () => {
       </div>
     </section>
   );
+  
 };
 
 export default Portfolio;
