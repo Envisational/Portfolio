@@ -42,7 +42,7 @@ const BlogPost = () => {
       <div className="container mx-auto px-4 relative" >
         <button
           onClick={handleBackClick}
-          className="absolute top-4 left-4 md:left-8 bg-white text-black hover:scale-110 transform transition duration-300 hover:bg-black hover:text-white p-2 rounded-full shadow-md"
+          className="absolute top-4 left-4 md:left-8 bg-white text-black hover:scale-110 transform transition duration-300 hover:bg-white hover:text-black p-2 rounded-full inline-block"
           style={{
             position: 'fixed',
             zIndex: 1000,
