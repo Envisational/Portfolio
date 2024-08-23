@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,8 +17,20 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission 
-    console.log('Form submitted:', formData);
+
+    // EmailJS configuration
+    emailjs.sendForm(process.env.REACT_APP_EMAILJS_SERVICE_ID,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      e.target,
+      process.env.REACT_APP_EMAILJS_USER_ID)
+      .then((result) => {
+          console.log('Message Sent:', result.text);
+      }, (error) => {
+          console.log('An error occurred:', error.text);
+      });
+
+    // Clear form after submission
+    setFormData({ name: '', email: '', message: '' });
   };
 
   return (
