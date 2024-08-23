@@ -26,7 +26,7 @@ const Journey = () => {
     <section id="journey" className="section journey-section">
       <div className="container mx-auto px-4">
         <h2 className="section-heading">My Journey</h2>
-        <div className="space-y-8">
+        <div className="space-y-8 flex items-center justify-center">
           {blogPosts.map((post) => (
             <div key={post.id} className="card">
               <h3 className="text-2xl font-semibold mb-2">

@@ -9,6 +9,7 @@ import Journey from './components/Journey';
 import Contact from './components/Contact';
 import BlogPost from './components/BlogPost';
 import Starfield from './components/Starfield';
+import './index.css';
 
 function App() {
   return (
@@ -35,4 +36,3 @@ function App() {
 }
 
 export default App;
-
