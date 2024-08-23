@@ -8,6 +8,10 @@ const Contact = () => {
     message: ''
   });
 
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [popupType, setPopupType] = useState(''); // 'success' or 'error'
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -18,19 +22,29 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // EmailJS configuration
-    emailjs.sendForm(process.env.REACT_APP_EMAILJS_SERVICE_ID,
+    emailjs.sendForm(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID,
       process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
       e.target,
-      process.env.REACT_APP_EMAILJS_USER_ID)
+      process.env.REACT_APP_EMAILJS_USER_ID
+    )
       .then((result) => {
-          console.log('Message Sent:', result.text);
+        setPopupType('success');
+        setPopupMessage('Yay! Your message has been sent successfully!');
+        setShowPopup(true);
       }, (error) => {
-          console.log('An error occurred:', error.text);
+        setPopupType('error');
+        setPopupMessage('Whoopsie daisy! Something is not right. If the issue is persists, try to the email manually');
+        setShowPopup(true);
       });
 
     // Clear form after submission
     setFormData({ name: '', email: '', message: '' });
+
+    // Hide popup after 5 seconds
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 5000);
   };
 
   return (
@@ -90,6 +104,19 @@ const Contact = () => {
           </form>
         </div>
       </div>
+
+      {showPopup && (
+        <div className={`fixed inset-0 flex items-center justify-center z-50`}>
+          <div
+            className={`bg-white p-6 rounded-lg shadow-lg transition-transform transform ${
+              popupType === 'success' ? 'bg-green-500' : 'bg-red-500'
+            }`}
+            style={{ width: '300px', textAlign: 'center' }}
+          >
+            <p className="text-white font-bold">{popupMessage}</p>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
