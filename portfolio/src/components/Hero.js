@@ -1,7 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const Hero = () => {
+  const handleScrollToPortfolio = (e) => {
+    e.preventDefault();
+    gsap.to(window, {
+      duration: 1.5,
+      scrollTo: {
+        y: '#portfolio',
+        autoKill: true,
+      },
+      ease: 'power3.inOut',
+    });
+  };
+
   return (
     <section id="home" className="flex items-center justify-center h-screen">
       <div className="text-center">
@@ -23,6 +39,7 @@ const Hero = () => {
         </motion.p>
         <motion.a
           href="#portfolio"
+          onClick={handleScrollToPortfolio}
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           whileHover={{ scale: 1.1 }}

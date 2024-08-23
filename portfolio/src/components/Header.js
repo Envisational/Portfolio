@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { gsap } from 'gsap';
+import useSmoothScroll from '../hooks/useSmoothScroll';
 
 const Header = () => {
+
+  // Smooth scroll 
+  useSmoothScroll('#about');
+  useSmoothScroll('#home');
+  useSmoothScroll('#journey');
+  useSmoothScroll('#portfolio');
+  useSmoothScroll('#skills');
+  useSmoothScroll('#contact');
+
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
