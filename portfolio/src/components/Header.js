@@ -27,8 +27,15 @@ const Header = () => {
     });
   }, [isVisible]);
 
-  return (
-    <header className="header bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-950 p-4 text-white fixed w-full top-0 z-20 shadow-2xl">
+    return (
+      <header
+      className="header p-4 text-white fixed w-full top-0 z-20 shadow-2xl"
+      style={{
+        background: 'radial-gradient(circle, rgba(10, 10, 100, 0.9) 10%, rgba(10, 10, 100, 0) 85%)',
+        clipPath: 'ellipse(150% 100% at 50% 0%)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
       <nav className="container mx-auto flex justify-center items-center">
         <ul className="flex space-x-6">
           <li className="p-2 rounded-full">
