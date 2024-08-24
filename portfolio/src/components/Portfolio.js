@@ -26,27 +26,30 @@ const Portfolio = () => {
     }
   ];
   
-  
-
   return (
     <section id="portfolio" className="py-20">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-8">Portfolio</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <div key={index} className="bg-white shadow-md rounded-lg overflow-hidden">
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-gray-700 mb-4">{project.description}</p>
-                <p className="text-sm text-gray-500 mb-4"><strong>Technologies Used:</strong> {project.technologies}</p>
-                <a
-                  href={project.link}
-                  className="link-style"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View Project
-                </a>
+            <div key={index} className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col">
+              <div className="p-6 flex-grow flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl font-bold mb-2 text-gray-700">{project.title}</h3>
+                  <p className="text-gray-500 mb-2"><strong>Role:</strong> {project.role}</p>
+                  <p className="text-gray-700 mb-4">{project.description}</p>
+                  <p className="text-sm text-gray-500 mb-4"><strong>Technologies Used:</strong> {project.technologies}</p>
+                </div>
+                <div className="mt-auto">
+                  <a
+                    href={project.link}
+                    className="link-style"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Project
+                  </a>
+                </div>
               </div>
             </div>
           ))}
@@ -54,7 +57,6 @@ const Portfolio = () => {
       </div>
     </section>
   );
-  
 };
 
 export default Portfolio;
