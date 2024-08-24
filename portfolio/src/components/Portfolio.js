@@ -41,7 +41,7 @@ const Portfolio = () => {
                 <p className="text-sm text-gray-500 mb-4"><strong>Technologies Used:</strong> {project.technologies}</p>
                 <a
                   href={project.link}
-                  className="text-blue-500 hover:text-blue-700 font-semibold"
+                  className="link-style"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
