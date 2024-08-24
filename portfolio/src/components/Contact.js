@@ -1,50 +1,52 @@
-import React, { useState } from 'react';
+/* global grecaptcha */
+
+
+import React, { useState, useRef } from 'react';
 import emailjs from 'emailjs-com';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
-  const [popupType, setPopupType] = useState(''); // 'success' or 'error'
+  const [popupType, setPopupType] = useState('');
+  const formRef = useRef(null);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const captchaResponse = window.grecaptcha.getResponse();
+
+    if (!captchaResponse) {
+      setPopupType('error');
+      setPopupMessage('Please complete the CAPTCHA.');
+      setShowPopup(true);
+      return;
+    }
+
     emailjs.sendForm(
       process.env.REACT_APP_EMAILJS_SERVICE_ID,
       process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-      e.target,
+      formRef.current,
       process.env.REACT_APP_EMAILJS_USER_ID
     )
-      .then((result) => {
+      .then(() => {
         setPopupType('success');
         setPopupMessage('Yay! Your message has been sent successfully!');
-        setShowPopup(true);
       }, (error) => {
         setPopupType('error');
         setPopupMessage('Whoopsie daisy! Something is not right. If the issue is persists, try to the email manually');
+        console.error('Error sending email:', error);
+      })
+      .finally(() => {
         setShowPopup(true);
+        setFormData({ name: '', email: '', message: '' });
+        window.grecaptcha.reset();
+        setTimeout(() => setShowPopup(false), 3000);
       });
-
-    // Clear form after submission
-    setFormData({ name: '', email: '', message: '' });
-
-    // Hide popup after 5 seconds
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 5000);
   };
 
   return (
@@ -52,7 +54,7 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         <h2 className="section-heading text-center mb-8">Contact Me</h2>
         <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6">
-          <form onSubmit={handleSubmit}>
+          <form ref={formRef} onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                 Name
@@ -95,6 +97,7 @@ const Contact = () => {
                 required
               />
             </div>
+            <div className="g-recaptcha text-gray-700" data-sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}></div>
             <button
               type="submit"
               className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600"
@@ -113,7 +116,7 @@ const Contact = () => {
             }`}
             style={{ width: '300px', textAlign: 'center' }}
           >
-            <p className="text-white font-bold">{popupMessage}</p>
+            <p className="text-gray-700 font-bold">{popupMessage}</p>
           </div>
         </div>
       )}
