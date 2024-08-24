@@ -1,7 +1,4 @@
-/* global grecaptcha */
-
-
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import emailjs from 'emailjs-com';
 
 const Contact = () => {
@@ -10,6 +7,35 @@ const Contact = () => {
   const [popupMessage, setPopupMessage] = useState('');
   const [popupType, setPopupType] = useState('');
   const formRef = useRef(null);
+  const recaptchaRef = useRef(null);
+
+  useEffect(() => {
+    const loadRecaptchaScript = () => {
+      return new Promise((resolve, reject) => {
+        if (document.getElementById('recaptcha-script')) {
+          resolve();
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.id = 'recaptcha-script';
+        script.src = 'https://www.google.com/recaptcha/api.js';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+    };
+
+    loadRecaptchaScript().then(() => {
+      if (window.grecaptcha && !recaptchaRef.current) {
+        recaptchaRef.current = window.grecaptcha.render('recaptcha', {
+          sitekey: process.env.REACT_APP_RECAPTCHA_SITE_KEY,
+        });
+      }
+    }).catch((error) => {
+      console.error('Error loading reCAPTCHA script:', error);
+    });
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,6 +50,7 @@ const Contact = () => {
       setPopupType('error');
       setPopupMessage('Please complete the CAPTCHA.');
       setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 3000); // Automatically close popup after 3 seconds
       return;
     }
 
@@ -38,14 +65,14 @@ const Contact = () => {
         setPopupMessage('Yay! Your message has been sent successfully!');
       }, (error) => {
         setPopupType('error');
-        setPopupMessage('Whoopsie daisy! Something is not right. If the issue is persists, try to the email manually');
+        setPopupMessage('Whoopsie daisy! Something is not right. If the issue persists, try to email manually.');
         console.error('Error sending email:', error);
       })
       .finally(() => {
         setShowPopup(true);
         setFormData({ name: '', email: '', message: '' });
         window.grecaptcha.reset();
-        setTimeout(() => setShowPopup(false), 3000);
+        setTimeout(() => setShowPopup(false), 3000); // Automatically close popup after 3 seconds
       });
   };
 
@@ -97,7 +124,7 @@ const Contact = () => {
                 required
               />
             </div>
-            <div className="g-recaptcha text-gray-700" data-sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}></div>
+            <div id="recaptcha" className="g-recaptcha text-gray-700" data-sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}></div>
             <button
               type="submit"
               className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600"
@@ -116,7 +143,17 @@ const Contact = () => {
             }`}
             style={{ width: '300px', textAlign: 'center' }}
           >
-            <p className="text-gray-700 font-bold">{popupMessage}</p>
+            <p className={`font-bold ${
+  popupType === 'success' ? 'text-green-500' : popupType === 'error' ? 'text-red-500' : 'text-gray-700'
+}`}>
+  {popupMessage}
+</p>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="mt-4 bg-gray-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-800"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
