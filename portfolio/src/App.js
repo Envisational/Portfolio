@@ -9,6 +9,7 @@ import Journey from './components/Journey';
 import Contact from './components/Contact';
 import BlogPost from './components/BlogPost';
 import Starfield from './components/Starfield';
+import SocialLinks from './components/SocialLinks';
 import './index.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Skills />
               <Journey />
               <Contact />
+              <SocialLinks /> {/* Add SocialLinks component here */}
             </>} />
             <Route path="/post/:id" element={<BlogPost />} />
           </Routes>
