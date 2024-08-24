@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import XIcon from '@mui/icons-material/X'; 
 import TelegramIcon from '@mui/icons-material/Telegram';
@@ -9,18 +9,38 @@ import { CSSPlugin } from 'gsap/CSSPlugin';
 gsap.registerPlugin(CSSPlugin);
 
 const SocialLinks = () => {
-  React.useEffect(() => {
-    const tl = gsap.timeline({ defaults: { duration: 1.5, ease: "elastic.out(1, 0.5)" } });
-    tl.fromTo(".icon", 
-      { opacity: 0, y: 50, scale: 0.5 }, 
-      { opacity: 1, y: 0, scale: 1, stagger: 0.3 }
-    )
-    .to(".icon", { rotation: 360, duration: 2, stagger: 0.3 }, "-=1.2")
-    .to(".icon", { color: "#ff4081", duration: 1, stagger: 0.3 }, "-=1.5");
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const tl = gsap.timeline({ defaults: { duration: 1.5, ease: "elastic.out(1, 0.5)" } });
+          tl.fromTo(".icon", 
+            { opacity: 0, y: 50, scale: 0.5 }, 
+            { opacity: 1, y: 0, scale: 1, stagger: 0.3 }
+          )
+          .to(".icon", { rotation: 360, duration: 2, stagger: 0.3 }, "-=1.2")
+          .to(".icon", { color: "#ff4081", duration: 1, stagger: 0.3 }, "-=1.5");
+          observer.unobserve(containerRef.current); // Stop observing after animation
+        }
+      },
+      { threshold: 0.1 } // Trigger when 10% of the element is in view
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
   }, []);
 
   return (
-    <div className="mt-4 flex space-x-10 justify-center mb-20">
+    <div ref={containerRef} className="mt-4 flex space-x-10 justify-center mb-20">
       <motion.a 
         href="https://github.com/Envisational" 
         target="_blank" 
