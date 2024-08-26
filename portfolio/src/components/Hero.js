@@ -12,7 +12,7 @@ const Hero = () => {
       duration: 1.5,
       scrollTo: {
         y: '#portfolio',
-        autoKill: true,
+        autoKill: false,
       },
       ease: 'power3.inOut',
     });
