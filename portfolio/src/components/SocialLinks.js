@@ -22,19 +22,21 @@ const SocialLinks = () => {
           )
           .to(".icon", { rotation: 360, duration: 2, stagger: 0.3 }, "-=1.2")
           .to(".icon", { color: "#ff4081", duration: 1, stagger: 0.3 }, "-=1.5");
-          observer.unobserve(containerRef.current); // Stop observing after animation
+          
         }
       },
       { threshold: 0.1 } // Trigger when 10% of the element is in view
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    const container = containerRef.current;
+
+    if (container) {
+      observer.observe(container);
     }
 
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
+      if (container) {
+        observer.unobserve(container);
       }
     };
   }, []);

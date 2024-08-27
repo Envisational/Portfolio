@@ -13,7 +13,7 @@ const useSmoothScroll = (target) => {
         duration: 1.5,
         scrollTo: {
           y: target,
-          autoKill: true, // stops the animation if the user interacts with the scroll
+          autoKill: false, 
         },
         ease: 'power3.inOut',
       });
