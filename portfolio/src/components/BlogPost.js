@@ -1,41 +1,19 @@
-import React, { useEffect, useState } from 'react';
+// src/components/BlogPost.js
+import React, { useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { BlogContext } from '../BlogContext'; // Import BlogContext
 
 const BlogPost = () => {
   const { _id } = useParams();
   const navigate = useNavigate();
-
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { blogPosts, loadingBlogs, errorBlogs } = useContext(BlogContext);
 
   useEffect(() => {
-    // Hide the header
     const header = document.querySelector('header');
     if (header) {
       header.style.display = 'none';
     }
 
-    // Fetch all blog posts from the backend
-    const fetchBlogPosts = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/public/blogs');
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        setBlogPosts(data);
-      } catch (err) {
-        console.error('Error fetching blog posts:', err);
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBlogPosts();
-
-    // Clean up to show the header when the component unmounts
     return () => {
       if (header) {
         header.style.display = '';
@@ -44,17 +22,17 @@ const BlogPost = () => {
   }, []);
 
   const handleBackClick = () => {
-    navigate(-1); // Navigate to the previous page
+    navigate(-1);
   };
 
-  if (loading) {
+  if (loadingBlogs) {
     return <div className="container mx-auto px-4 py-20">Loading...</div>;
   }
 
-  if (error) {
+  if (errorBlogs) {
     return (
       <div className="container mx-auto px-4 py-20">
-        Error: {error.message}
+        Error: {errorBlogs.message}
       </div>
     );
   }

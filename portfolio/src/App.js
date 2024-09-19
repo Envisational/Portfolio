@@ -10,13 +10,15 @@ import Contact from './components/Contact';
 import BlogPost from './components/BlogPost';
 import Starfield from './components/Starfield';
 import SocialLinks from './components/SocialLinks';
+import { BlogProvider } from './BlogContext';
 import './index.css';
 
 function App() {
   return (
     <div className="relative">
       <Starfield />
-      <Router>
+      <BlogProvider>      
+        <Router>
         <div className="relative z-10">
           <Header />
           <Routes>
@@ -32,7 +34,8 @@ function App() {
             <Route path="/post/:_id" element={<BlogPost />} />
           </Routes>
         </div>
-      </Router>
+      </Router></BlogProvider>
+
     </div>
   );
 }

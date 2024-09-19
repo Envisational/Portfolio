@@ -1,57 +1,41 @@
-import React, { useEffect, useState } from 'react';
+// src/components/Journey.js
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BlogContext } from '../BlogContext'; // Import BlogContext
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Journey = () => {
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { blogPosts, loadingBlogs, errorBlogs } = useContext(BlogContext);
 
   useEffect(() => {
-    gsap.fromTo(
-      '.journey-section',
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        scrollTrigger: {
-          trigger: '.journey-section',
-          start: 'top 75%',
-        },
-      }
-    );
-
-    // Fetch blog posts from the backend
-    const fetchBlogPosts = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/public/blogs');
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+    if (!loadingBlogs && !errorBlogs) {
+      gsap.fromTo(
+        '.journey-section',
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            trigger: '.journey-section',
+            start: 'top 75%',
+            toggleActions: 'play none none reset',
+          },
         }
-        const data = await response.json();
-        setBlogPosts(data);
-      } catch (err) {
-        console.error('Error fetching blog posts:', err);
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+      );
+    }
+  }, [loadingBlogs, errorBlogs]); // Re-run when loading or error state changes
 
-    fetchBlogPosts();
-  }, []);
-
-  if (loading) {
+  if (loadingBlogs) {
     return <div className="container mx-auto px-4 py-20">Loading...</div>;
   }
 
-  if (error) {
+  if (errorBlogs) {
     return (
       <div className="container mx-auto px-4 py-20">
-        Error: {error.message}
+        Error: {errorBlogs.message}
       </div>
     );
   }
