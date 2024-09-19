@@ -1,4 +1,3 @@
-// src/components/Journey.js
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';

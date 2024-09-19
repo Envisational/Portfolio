@@ -1,4 +1,3 @@
-// src/components/BlogPost.js
 import React, { useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BlogContext } from '../BlogContext'; // Import BlogContext
