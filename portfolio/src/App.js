@@ -29,7 +29,7 @@ function App() {
               <Contact />
               <SocialLinks /> {/* Add SocialLinks component here */}
             </>} />
-            <Route path="/post/:id" element={<BlogPost />} />
+            <Route path="/post/:_id" element={<BlogPost />} />
           </Routes>
         </div>
       </Router>
